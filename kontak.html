@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak Saya</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      width: 350px;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    a {
+      color: #fff;
+      background: #4a90e2;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      background-color: #357ab8;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="background"></canvas>
+
+  <div class="card">
+    <h1>Kontak Saya</h1>
+    <p>Email: <a href="mailto:rakanurosid04@email.com">rakanurosid04@email.com</a></p>
+    <p>Instagram: <a href="https://instagram.com/_raka444" target="_blank">@_raka444</a></p>
+    <p>WhatsApp: <a href="https://wa.me/6288809970863" target="_blank">Chat on WhatsApp</a>
+    <p>Facebook: <a href="https://facebook.com/rakanurosid" target="_blank">Raka Nurosid</a></p>
+    <p>TikTok: <a href="https://www.tiktok.com/@_r4kaa" target="_blank">_r4kaa</a></p>
+    <p>Kita Lulus: <a href="https://www.kitalulus.com/rakanurosid" target="_blank">rakanurosid</a></p>
+    </p>
+    <a href="index.html">⬅ Kembali ke Beranda</a>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("background");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    const numStars = 200;
+
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        z: Math.random() * canvas.width
+      });
+    }
+
+    function animateStars() {
+      ctx.fillStyle = "rgba(0, 0, 20, 0.3)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < numStars; i++) {
+        let star = stars[i];
+
+        star.z -= 2;
+        if (star.z <= 0) {
+          star.z = canvas.width;
+        }
+
+        const k = 128.0 / star.z;
+        const px = star.x * k + canvas.width / 2;
+        const py = star.y * k + canvas.height / 2;
+
+        if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
+          const size = (1 - star.z / canvas.width) * 3;
+          ctx.beginPath();
+          ctx.arc(px, py, size, 0, Math.PI * 2);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+</body>
+</html>

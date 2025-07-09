@@ -1,0 +1,197 @@
+r<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tentang Saya 3D</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    body {
+      background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+      perspective: 1000px;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #ffd700;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      transition: transform 0.4s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .card:hover {
+      transform: rotateY(5deg) rotateX(5deg) scale(1.03);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #ffe;
+      font-size: 24px;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+    }
+
+    a {
+      color: #00f7ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(6px);
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<header>
+  <h1>Selamat Datang di Website Saya</h1>
+  <nav>
+    <a href="index.html">Beranda</a>
+    <a href="kontak.html">Kontak</a>
+  </nav>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Tentang Saya</h2>
+    <p>Halo! Saya <strong>Raka Nurosid</strong></p>
+    <p>Kelahiran Serang 04 April 2004<p>
+    <p>Domisili Kota Serang-Banten<p>
+    <p>Saya Sekarang Melanjutkan Pendidikan S1 Di Universitas Bina Bangsa<p>
+    <P>Fakultas Ilmu Komputer/Prodi Ilmu Komputer</P>
+    <P>NIM 14012200091</P>
+  </div>
+
+  <div class="card">
+    <h2>Aktivitas Saya</h2>
+    <ul>
+      <li>Belajar Pemrograman</li>
+      <li>Membaca Buku Teknologi</li>
+      <li>Menonton Video Edukatif</li>
+      <li>Olahrga Di Bidang Bulutangkis Dan Futsal</li>
+      <li>Belajar Teknologi Berkaitan Dengan AI</li>
+      <li>Modifikasi Motor</li>
+      <li>Belajar Design UI/UX</li>
+      <li>Content Creator</li>
+      <li>Mempelajari Perangkat Keras (Hardware)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Link Favorit</h2>
+    <ol>
+      <li><a href="https://www.google.com" target="_blank">Google</a></li>
+      <li><a href="https://www.yahoo.com" target="_blank">Yahoo</a></li>
+      <li><a href="https://www.hotmail.com" target="_blank">Hotmail</a></li>
+    </ol>
+  </div>
+</main>
+
+<footer>
+  <p>Website ini dibuat oleh Raka - 2025</p>
+</footer>
+
+<script>
+  // 3D background star particles
+  const canvas = document.getElementById("bg");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const stars = Array.from({ length: 200 }, () => ({
+    x: Math.random() * canvas.width - canvas.width / 2,
+    y: Math.random() * canvas.height - canvas.height / 2,
+    z: Math.random() * canvas.width,
+  }));
+
+  function draw() {
+    ctx.fillStyle = "rgba(0, 0, 20, 0.3)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (const star of stars) {
+      star.z -= 1;
+      if (star.z <= 0) star.z = canvas.width;
+
+      const k = 128.0 / star.z;
+      const px = star.x * k + canvas.width / 2;
+      const py = star.y * k + canvas.height / 2;
+
+      if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
+        const size = (1 - star.z / canvas.width) * 3;
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
+</body>
+</html>
